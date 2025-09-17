@@ -12,7 +12,7 @@ const leer = readline.createInterface({
 // });
 
 
-/// Clases
+// Clases
 
 class Material {
     constructor(titulo, numEjemplares) {
@@ -81,7 +81,7 @@ class Socio extends Personas {
     }
 
     get prestados() {return this._prestados;}
-    set prestados(newPrestados) {newPrestados = this._prestados;}
+    set prestados(newPrestados) {this._prestados = newPrestados;}
 }
 
 class Admin extends Personas {
@@ -94,3 +94,43 @@ class Admin extends Personas {
     set cargo(newCargo) {this._cargo = newCargo;}
 }
 
+class Biblioteca {
+    constructor(listaLibros = [], listaPeliculas = [], listaRevistas = [], listaMiembros = [], listaAdmin = []) {
+        this._listaLibros = listaLibros;
+        this._listaPeliculas = listaPeliculas;
+        this._listaRevistas = listaRevistas;
+        this._listaMiembros = listaMiembros;
+        this._listaAdmin = listaAdmin;
+    }
+
+    get listaLibros() {return this._listaLibros;}
+    get listaPeliculas() {return this._listaPeliculas;}
+    get listaRevistas() {return this._listaRevistas;}
+    get listaMiembros() {return  this._listaMiembros;}
+    get listaAdmin() {return this._listaAdmin;}
+    set listaLibros(newListaLibros) {this._listaLibros = newListaLibros;}
+    set listaPeliculas(newListaPeliculas) {this._listaPeliculas = newListaPeliculas;}
+    set listaRevistas(newListaRevistas) {this._listaRevistas = newListaRevistas;}
+    set listaMiembros(newListaMiembros) {this._listaMiembros = newListaMiembros;}
+    set listaAdmin(newListaAdmin) {this._listaAdmin = newListaAdmin;}
+
+    // Métodos Add
+
+    addLibro(titulo, autor, numEjemplares) {
+        const libroAdded = new Libros(autor, titulo, numEjemplares);
+        this._listaLibros.push(libroAdded);
+        console.log(`${numEjemplares} ejemplar/es del libro "${titulo}" de ${autor} añadido/s con éxito.`);
+    }
+
+    addPelicula(titulo, director, genero, numEjemplares) {
+        const peliculaAdded = new Peliculas(director, genero, titulo, numEjemplares);
+        this._listaPeliculas.push(peliculaAdded);
+        console.log(`${numEjemplares} ejemplar/es de la Película "${titulo}" añadido/s con éxito.`);
+    }
+
+    addRevista(publicacion, titulo, numEjemplares) {
+        const revistaAdded = new Revistas(publicacion, titulo, numEjemplares);
+        this._listaRevistas.push(revistaAdded);
+        console.log(`${numEjemplares} ejemplar/es de la revista "${titulo}" añadido/s con éxito.`);
+    }
+}
