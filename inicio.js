@@ -151,10 +151,18 @@ class Admin extends Personas {
     constructor(nombre, dni, cargo) {
         super(nombre, dni);
         this._cargo = cargo;
+        if (cargo.toLowerCase() !== "administrador" && cargo.toLowerCase() !== "ayudante") {
+            throw new Error(`El cargo de un Admin ha de ser "Administrador" o "Ayudante".`);
+        }
     }
 
     get cargo() {return this._cargo;}
-    set cargo(newCargo) {this._cargo = newCargo;}
+    set cargo(newCargo) {
+        if (newCargo.toLowerCase() !== "administrador" && newCargo.toLowerCase() !== "ayudante") {
+            throw new Error(`El cargo de un Admin ha de ser "Administrador" o "Ayudante".`);
+        }
+        this._cargo = newCargo;
+    }
 }
 
 class Biblioteca {
@@ -295,7 +303,7 @@ class Biblioteca {
         console.log(`"${titulo}" devuelto con éxito por ${socio.nombre}.`);
     }
 
-    // Métodos para Mostrar Artículos
+    // Métodos para Mostrar Artículos/Personas
 
     async menuMostrarArticulos() {
 
@@ -351,6 +359,7 @@ class Biblioteca {
 
         if (!tipo) {
             // Mostrar todos los Artículos
+
             lista = [...this._listaLibros, ...this._listaPeliculas, ...this._listaRevistas];
 
         } else if (tipo.toLowerCase() === "libro") {
@@ -385,6 +394,25 @@ class Biblioteca {
             if (artic instanceof Revistas) info += ` - Año de Publicación: ${artic.publicacion}`;
             
             console.log(info);
+        });
+
+    }
+
+    mostrarSocios() {
+    this._listaMiembros.forEach(soci => {
+            console.log(`- Nombre: ${soci.nombre} - DNI: ${soci.dni}`)
+        });
+    }
+
+    mostrarAdmins() {
+        this._listaAdmin.forEach(admi => {
+            console.log(`- Nombre: ${admi.nombre} - DNI: ${admi.dni} - Cargo: ${admi.cargo}`)
+        });
+    }
+
+    mostrarPrestamosSocio() {
+        this._listaMiembros.forEach(soci => {
+            console.log(`- Nombre: ${soci.nombre}\nPréstamos: ${soci.prestados}`)
         });
     }
 }
