@@ -1,80 +1,3 @@
-// SetUp para leer y mostrar
-
-const { resolve } = require('path');
-const readline = require('readline');
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-function preguntar(propmt) {
-    return new Promise((resolve) => {
-        rl.question(propmt, resolve);
-    });
-}
-
-// Clase Main
-
-async function main() {
-    let option;
-    let out = false;
-
-    do {
-        console.log("\n----------------- Menú -----------------\n");
-
-        console.log("1. Mostrar Artículos Disponibles");
-        console.log("2. Mostrar Socios");
-        console.log("3. Mostrar Admins");
-        console.log("4. Mostrar registro de préstamos");
-        console.log("5. Prestar Artículo");
-        console.log("6. Devolver Artículo");
-        console.log("7. Añadir Libro");
-        console.log("8. Añadir Revista");
-        console.log("9. Añadir Película");
-        console.log("10. Añadir Socio");
-        console.log("11. Añadir Admin");
-        console.log("12. Salir");
-
-        option = await preguntar("\nSeleccione una opción: ");
-
-        switch(option) {
-
-            case "1":
-                break;
-            case "2":
-                break;
-            case "3":
-                break;
-            case "4":
-                break;
-            case "5":
-                break;
-            case "6":
-                break;
-            case "7":
-                break;
-            case "8":
-                break;
-            case "9":
-                break;
-            case "10":
-                break;
-            case "11":
-                break;
-            case "12":
-                console.log("\nSaliendo...\n");
-                console.log("----------- Biblioteca de Tavernes -----------");
-                out = true;
-                break;
-            default:
-                console.log("Opción inválida.");
-        }
-    } while(!out);
-
-    rl.close();
-}
-
 // Clases
 
 class Material {
@@ -305,53 +228,16 @@ class Biblioteca {
 
     // Métodos para Mostrar Artículos/Personas
 
-    async menuMostrarArticulos() {
+    menuMostrarArticulos() {
 
-        let option;
-        let out = false;
+        console.log("\n------- Menú Artículos -------\n");
 
-        do {
+        console.log("1. Mostrar todos los artículos");
+        console.log("2. Mostrar Libros");
+        console.log("3. Mostrar Películas");
+        console.log("4. Mostrar Revistas");
+        console.log("5. Salir");
 
-            console.log("\n------- Menú Artículos -------\n");
-
-            console.log("1. Mostrar todos los artículos");
-            console.log("2. Mostrar Libros");
-            console.log("3. Mostrar Películas");
-            console.log("4. Mostrar Revistas");
-            console.log("5. Salir");
-
-            option = await preguntar("Selecciona una opción: ");
-
-            switch(option) {
-
-                case "1":
-                    this.mostrarArticulos();
-                    break;
-
-                case "2":
-                    this.mostrarArticulos("libro");
-                    break;
-
-                case "3":
-                    const genero = await preguntar("Género (dejar vacío para todos): ");
-                    this.mostrarArticulos("pelicula", genero || null);
-                    break;
-
-                case "4":
-                    const year = await preguntar("Año de Publicación (dejar vacío para todos): ");
-                    this.mostrarArticulos("revista", year || null);
-                    break;
-
-                case "5":
-                    console.log("\nVolviendo al Menú Principal...");
-                    out = true
-                    break;
-                default:
-                    console.log("\nOpción inválida.")
-                    break;
-            }
-
-        } while(!out);
     }
 
     mostrarArticulos(tipo = null, filtroExtra = null) {
@@ -416,3 +302,7 @@ class Biblioteca {
         });
     }
 }
+
+// Sintaxis que se utiliza para poder usar Biblioteca fuera de este archivo
+
+module.exports = Biblioteca;
