@@ -131,7 +131,7 @@ async function main() {
 
             case "12":
                 console.log("\nSaliendo...\n");
-                console.log("----------- Biblioteca de Tavernes -----------");
+                console.log("---------- Biblioteca de Tavernes ----------");
                 out = true;
                 break;
 
