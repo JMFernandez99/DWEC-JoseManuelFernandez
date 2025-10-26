@@ -1,23 +1,22 @@
+// db.js
 import mysql from "mysql2";
 
-const connection = mysql.createConnection({
-  host: "localhost",      
-  user: "alumno",           
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "alumno",
   password: "alumno",
-  database: "biblioteca"   
+  database: "biblioteca"
 });
 
-connection.connect(err => {
+db.connect(err => {
   if (err) {
-    console.error("Error al conectar:", err);
-    return;
+    console.error("❌ Error al conectar:", err);
+  } else {
+    console.log("✅ Conectado a la base de datos MySQL");
   }
-  console.log("Conectado a la base de datos MySQL");
 });
 
-connection.query("SELECT * FROM material", (err, results) => {
-  if (err) throw err;
-  console.log(results);
-});
+export default db;
 
-connection.end();
+// Esto básicamente es un canal entre Node y MySQL, es un módulo de conexión, el puente
+// entre la aplicación en Node y la Base de Datos en MySQL

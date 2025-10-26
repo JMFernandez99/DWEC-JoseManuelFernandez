@@ -1,0 +1,85 @@
+// ------------------- GET -------------------
+
+// GET - Obtener los materiales introduciendo el tipo
+get http://localhost:3000/material/libro
+
+###
+
+// GET - Obtener todos los materiales
+get http://localhost:3000/material
+
+###
+
+// GET - Obtener todas las personas
+get http://localhost:3000/persona
+
+###
+
+// GET - Obtener las personas según tipo
+get http://localhost:3000/persona/socio
+
+###
+
+// GET - Obtener todos los préstamos
+get http://localhost:3000/prestamo
+
+###
+
+// GET - Obtener todos los préstamos pendientes de devolución
+get http://localhost:3000/prestamo/pendientes
+
+###
+
+// GET - Obtener todos los préstamos ya devueltos
+get http://localhost:3000/prestamo/devueltos
+
+###
+
+// ------------------- POST -------------------
+
+// POST - Añadir un nuevo material indicando el tipo y después los atributos en formato json
+post http://localhost:3000/material/libro
+Content-Type: application/json
+
+{
+  "titulo": "El Quijote",
+  "ejemplares": 2,
+  "autor": "Miguel de Cervantes"
+}
+
+###
+
+// POST - Añadir una nueva persona indicando  el tipo  y después los atributos en formato json
+post http://localhost:3000/persona
+Content-Type: application/json
+
+{
+  "nombre": "Joel",
+  "DNI": "33252866J",
+  "tipo": "socio"
+}
+
+###
+
+// POST - Añadir un nuevo préstamo
+post http://localhost:3000/prestamo
+Content-Type: application/json
+
+{
+  "ID_socio": 2,
+  "ID_admin": 1,
+  "ID_material": 1,
+  "Fecha_prestamo": "2025-10-26"
+}
+
+###
+
+// ------------------- PUT -------------------
+
+// PUT - Registrar devolución
+PUT http://localhost:3000/prestamo/2/devolver
+Content-Type: application/json
+
+{
+  "Fecha_devolucion": "2025-10-26"
+}

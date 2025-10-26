@@ -1,65 +1,50 @@
--- Active: 1759334537505@@127.0.0.1@3306@mysql
-drop database if exists biblioteca;
-create DATABASE biblioteca;
-
-use biblioteca;
+DROP DATABASE IF EXISTS biblioteca;
+CREATE DATABASE biblioteca;
+USE biblioteca;
 
 CREATE TABLE material (
     ID INT PRIMARY KEY AUTO_INCREMENT,
-    Tipo ENUM(
-        'Libro',
-        'Revista',
-        'Pelicula'
-    ),
-    ejemplares INT,
+    Tipo ENUM('Libro','Revista','Pelicula'),
+    ejemplares INT DEFAULT 1,
     titulo VARCHAR(50)
 );
 
 CREATE TABLE Libro (
-    ISBN_material INT PRIMARY KEY AUTO_INCREMENT,
+    ID_material INT PRIMARY KEY,
     autor VARCHAR(50),
-    FOREIGN KEY(ISBN_material)REFERENCES material(ID)
+    FOREIGN KEY(ID_material) REFERENCES material(ID)
 );
 
 CREATE TABLE Revista (
-    ID_material INT PRIMARY KEY AUTO_INCREMENT,
+    ID_material INT PRIMARY KEY,
     autor VARCHAR(50),
-    fecha_publicacion VARCHAR(20),
-    FOREIGN KEY(ID_material)REFERENCES material(ID)
+    fecha_publicacion DATE,
+    FOREIGN KEY(ID_material) REFERENCES material(ID)
 );
 
 CREATE TABLE Pelicula (
-    ID_material INT PRIMARY KEY AUTO_INCREMENT,
-    titulo VARCHAR(50),
+    ID_material INT PRIMARY KEY,
     director VARCHAR(50),
     genero VARCHAR(50),
-    FOREIGN KEY(ID_material)REFERENCES material(ID)
+    FOREIGN KEY(ID_material) REFERENCES material(ID)
 );
 
-CREATE TABLE Socio (
-    ID INT PRIMARY KEY,
+CREATE TABLE Persona (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(50),
-    DNI CHAR(9) UNIQUE
-);
-
-CREATE TABLE Administrador (
-    ID INT PRIMARY KEY,
-    nombre VARCHAR(50),
-    DNI CHAR(9) UNIQUE
+    DNI CHAR(9) UNIQUE,
+    tipo ENUM('Socio','Administrador'),
+    rol_admin ENUM('Admin','Ayudante') NULL
 );
 
 CREATE TABLE Prestamo (
     ID_prestamo INT PRIMARY KEY AUTO_INCREMENT,
-    ID_socio int,
-    ID_material int,
+    ID_socio INT,
+    ID_admin INT,
+    ID_material INT,
     Fecha_prestamo DATE NOT NULL,
     Fecha_devolucion DATE,
-    FOREIGN KEY (ID_socio) REFERENCES Socio (ID),
+    FOREIGN KEY (ID_socio) REFERENCES Persona (ID),
+    FOREIGN KEY (ID_admin) REFERENCES Persona (ID),
     FOREIGN KEY (ID_material) REFERENCES material (ID)
 );
-
-INSERT INTO material (ID, Tipo, ejemplares, titulo) VALUES
-(1, 'Pelicula', 5, 'El Señor de los Anillos'),
-(2, 'Revista', 10, 'National Geographic - Octubre'),
-(3, 'Libro', 3, 'Cien Años de Soledad'),
-(4, 'Pelicula', 7, 'Matrix');
